@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil - MangáGo</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .content-container {
+      padding-top: 50px; /* Garantindo que o título seja visível */
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/populares">Mangás Populares</a></li>
+      <% if (!criadorId) { %>
+        <li><a href="/criar-conta">Criar Conta</a></li>
+        <li><a href="/login">Login</a></li>
+      <% } else { %>
+        <li><a href="/perfil">Meu Perfil</a></li>
+        <li><a href="/logout">Logout</a></li>
+      <% } %>
+    </ul>
+  </div>
+  <div class="content-container">
+    <h1>Perfil do Usuário</h1>
+    <div class="user-info">
+      <p><strong>Nome:</strong> <%= usuario.nome %></p>
+      <p><strong>Email:</strong> <%= usuario.email %></p>
+    </div>
+
+    <div class="profile-options">
+      <ul>
+        <li><a href="/postar-manga"><i class="fas fa-upload"></i> Postar Mangá</a></li>
+        <li><a href="/postar-capitulo"><i class="fas fa-plus-circle"></i> Postar Capítulo</a></li>
+        <li><a href="/configuracoes"><i class="fas fa-cogs"></i> Configurações</a></li>
+        <li><a href="/ajuda"><i class="fas fa-info-circle"></i> Ajuda</a></li>
+        <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </div>
+
+    <h2>Seus Mangás</h2>
+    <% if (mangas.length > 0) { %>
+      <ul class="manga-list">
+        <% mangas.forEach(manga => { %>
+          <li>
+            <h3><%= manga.titulo %></h3>
+            <p><%= manga.descricao %></p>
+            <a href="/editar-manga/<%= manga.id %>">Editar</a> |
+            <a href="/excluir-manga/<%= manga.id %>">Excluir</a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>Você ainda não criou nenhum mangá.</p>
+    <% } %>
+  </div>
+</body>
+</html>

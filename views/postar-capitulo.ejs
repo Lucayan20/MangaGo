@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Postar Capítulo - MangáGo</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .form-container {
+      padding-top: 50px; /* Garantindo que o título seja visível */
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/populares">Mangás Populares</a></li>
+      <% if (!criadorId) { %>
+        <li><a href="/criar-conta">Criar Conta</a></li>
+        <li><a href="/login">Login</a></li>
+      <% } else { %>
+        <li><a href="/perfil">Meu Perfil</a></li>
+        <li><a href="/logout">Logout</a></li>
+      <% } %>
+    </ul>
+  </div>
+  <div class="form-container">
+    <h1>Postar Capítulo</h1>
+    <form action="/postar-capitulo" method="POST">
+      <label for="mangaNome">Nome do Mangá:</label>
+      <select id="mangaNome" name="mangaNome" required>
+        <% mangas.forEach(manga => { %>
+          <option value="<%= manga.id %>"><%= manga.titulo %></option>
+        <% }) %>
+      </select><br><br>
+      <label for="titulo">Título do Capítulo:</label>
+      <input type="text" id="titulo" name="titulo" required><br><br>
+      <label for="conteudo">Conteúdo:</label>
+      <textarea id="conteudo" name="conteudo" required></textarea><br><br>
+      <button type="submit">Postar Capítulo</button>
+    </form>
+    <a href="/perfil">Voltar ao Perfil</a>
+  </div>
+</body>
+</html>

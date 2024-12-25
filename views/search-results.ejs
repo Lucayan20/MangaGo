@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados da Pesquisa - MangáGo</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="navbar">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/populares">Mangás Populares</a></li>
+      <% if (!criadorId) { %>
+        <li><a href="/criar-conta">Criar Conta</a></li>
+        <li><a href="/login">Login</a></li>
+      <% } else { %>
+        <li><a href="/perfil">Meu Perfil</a></li>
+        <li><a href="/logout">Logout</a></li>
+      <% } %>
+    </ul>
+  </div>
+  <div class="content-container">
+    <h1>Resultados da Pesquisa</h1>
+    <% if (mangas.length > 0) { %>
+      <ul class="manga-list">
+        <% mangas.forEach(manga => { %>
+          <li>
+            <h3><%= manga.titulo %></h3>
+            <p><%= manga.descricao.substring(0, 100) %>...</p>
+            <a href="/manga/<%= manga.id %>">Ler Mais</a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>Nenhum mangá encontrado.</p>
+    <% } %>
+  </div>
+</body>
+</html>
