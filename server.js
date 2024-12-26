@@ -63,9 +63,11 @@ const verificaLogin = (req, res, next) => {
 };
 
 // Rotas
+
 // Configuração do EJS 
 app.set('view engine', 'ejs');
  app.set('views', path.join(__dirname, 'views'));
+
 // Rota para a página inicial
 app.get('/', (req, res) => {
     const sql = `SELECT * FROM mangas WHERE titulo = 'One Piece'`;
