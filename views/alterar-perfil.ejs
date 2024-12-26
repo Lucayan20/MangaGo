@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alterar Perfil - MangáGo</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="content-container">
+    <h1>Alterar Perfil</h1>
+    <form action="/alterar-perfil" method="POST">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" value="<%= criador.nome %>" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" value="<%= criador.email %>" required>
+      <button type="submit">Salvar Alterações</button>
+    </form>
+  </div>
+</body>
+</html>

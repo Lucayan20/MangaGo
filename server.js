@@ -63,6 +63,7 @@ const verificaLogin = (req, res, next) => {
 };
 
 // Rotas
+module.exports.handler = serverless(app);
 // Rota para a página inicial
 app.get('/', (req, res) => {
     const sql = `SELECT * FROM mangas WHERE titulo = 'One Piece'`;
@@ -327,7 +328,59 @@ app.get('/configuracoes', verificaLogin, (req, res) => {
   app.get('/ajuda', verificaLogin, (req, res) => {
     res.render('ajuda');
   });
+
+  // Rota para a página de alterar perfil
+app.get('/alterar-perfil', verificaLogin, (req, res) => {
+    const criadorId = req.session.criadorId;
+    const sql = `SELECT * FROM criadores WHERE id = ?`;
+    db.query(sql, [criadorId], (err, results) => {
+      if (err) throw err;
+      res.render('alterar-perfil', { criador: results[0] });
+    });
+  });
   
+  app.post('/alterar-perfil', verificaLogin, (req, res) => {
+    const criadorId = req.session.criadorId;
+    const { nome, email } = req.body;
+    const sql = `UPDATE criadores SET nome = ?, email = ? WHERE id = ?`;
+    db.query(sql, [nome, email, criadorId], (err, result) => {
+      if (err) throw err;
+      res.redirect('/perfil');
+    });
+  });
+  // Rota para a página de alterar senha
+app.get('/alterar-senha', verificaLogin, (req, res) => {
+  res.render('alterar-senha');
+});
+
+app.post('/alterar-senha', verificaLogin, (req, res) => {
+  const criadorId = req.session.criadorId;
+  const { senha_atual, nova_senha } = req.body;
+  const sqlVerificarSenha = `SELECT senha FROM criadores WHERE id = ?`;
+  db.query(sqlVerificarSenha, [criadorId], (err, results) => {
+    if (err) throw err;
+    if (results[0].senha === senha_atual) {
+      const sqlAlterarSenha = `UPDATE criadores SET senha = ? WHERE id = ?`;
+      db.query(sqlAlterarSenha, [nova_senha, criadorId], (err, result) => {
+        if (err) throw err;
+        res.redirect('/perfil');
+      });
+    } else {
+      res.send('Senha atual incorreta.');
+    }
+  });
+});
+
+// Rota para a página de notificações
+app.get('/notificacoes', verificaLogin, (req, res) => {
+    res.render('notificacoes');
+  });
+
+ // Rota para a página de privacidade
+app.get('/privacidade', (req, res) => {
+    res.render('privacidade');
+  });
+   
 // Iniciar servidor
 app.listen(3000, () => {
   console.log('Servidor rodando na porta 3000');
