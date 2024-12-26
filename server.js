@@ -57,11 +57,7 @@ db.connect((err) => {
   console.log('Banco de dados conectado.');
 });
 
-
-db.connect((err) => {
-  if (err) throw err;
-  console.log('Banco de dados conectado.');
-});
+// Certifique-se de que não há outras chamadas de db.connect() duplicadas
 
 // Configuração do Express
 app.set('view engine', 'ejs');
