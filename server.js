@@ -40,7 +40,6 @@ app.use((req, res, next) => {
 });
 
 // Configuração do banco de dados
-const mysql = require('mysql');
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
