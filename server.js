@@ -40,6 +40,8 @@ app.use((req, res, next) => {
 });
 
 // Configuração do banco de dados
+const mysql = require('mysql');
+require('dotenv').config();
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -57,7 +59,8 @@ db.connect((err) => {
   console.log('Banco de dados conectado.');
 });
 
-// Certifique-se de que não há outras chamadas de db.connect() duplicadas
+const PORT = process.env.PORT || 3000;
+
 
 // Configuração do Express
 app.set('view engine', 'ejs');
