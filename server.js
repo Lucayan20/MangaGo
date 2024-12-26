@@ -40,9 +40,6 @@ app.use((req, res, next) => {
 });
 
 // Configuração do banco de dados
-const mysql = require('mysql');
-require('dotenv').config();
-
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
