@@ -19,6 +19,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+app.use(express.static('public'));
+
+
 // Restante do código do servidor
 
 app.use(session({
